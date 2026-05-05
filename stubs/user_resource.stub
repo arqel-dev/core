@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Arqel\Resources;
+
+use App\Models\User;
+use Arqel\Core\Resources\Resource;
+
+/**
+ * Resource exemplo gerado por `php artisan arqel:install`.
+ *
+ * Modela CRUD do model `User` no painel `admin`. Substitua, estenda
+ * ou apague conforme as necessidades da sua aplicação.
+ */
+final class UserResource extends Resource
+{
+    /** @var class-string<\Illuminate\Database\Eloquent\Model> */
+    public static string $model = User::class;
+
+    public static ?string $slug = 'users';
+
+    public static ?string $label = 'User';
+
+    public static ?string $pluralLabel = 'Users';
+
+    public static ?string $navigationIcon = 'heroicon-o-users';
+
+    public static ?string $navigationGroup = 'System';
+
+    public static ?int $navigationSort = 10;
+
+    public static ?string $recordTitleAttribute = 'name';
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function fields(): array
+    {
+        return [
+            ['name' => 'name', 'type' => 'text', 'required' => true],
+            ['name' => 'email', 'type' => 'text', 'required' => true],
+        ];
+    }
+}

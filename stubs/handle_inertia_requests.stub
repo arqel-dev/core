@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Middleware;
+
+use Illuminate\Http\Request;
+use Inertia\Middleware;
+
+/**
+ * App-level Inertia middleware.
+ *
+ * Pinned to `arqel.layout` (the Blade root published by
+ * `arqel:install`) so login/register/etc. — which do not pass
+ * through `HandleArqelInertiaRequests` from the core — still
+ * render under the same root template.
+ *
+ * Add custom shared props in `share()` as needed.
+ */
+final class HandleInertiaRequests extends Middleware
+{
+    /** @var string */
+    protected $rootView = 'arqel.layout';
+
+    /** @return array<string, mixed> */
+    public function share(Request $request): array
+    {
+        return array_merge(parent::share($request), [
+            'auth' => fn () => [
+                'user' => $request->user(),
+            ],
+            'app' => [
+                'name' => config('app.name'),
+            ],
+        ]);
+    }
+}
